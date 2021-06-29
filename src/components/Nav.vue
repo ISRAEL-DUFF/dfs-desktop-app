@@ -41,7 +41,6 @@
 
 <script>
 import socketMixin from "@/mixins/socket";
-import eventHub from '@/eventHub';
 
   export default {
     data() {
@@ -50,7 +49,7 @@ import eventHub from '@/eventHub';
 
     methods: {
       openNotif() {
-        eventHub.$emit("openNotif")
+        this.$eventHub.$emit("openNotif")
       },
       closeNotif () {},
       logout() {

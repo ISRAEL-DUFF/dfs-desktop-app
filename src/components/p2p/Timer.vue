@@ -56,7 +56,7 @@
 
 <script>
     import Modal from '@/components/p2p/Modal'
-    import eventHub from '@/eventHub'
+    // import eventHub from '@/eventHub'
     import socketMixin from '@/mixins/socket'
     import { mapState } from 'vuex';
     import axios from 'axios';
@@ -181,10 +181,10 @@
             },
 
             openTxModal () {
-                eventHub.$emit(`openTxModal${this.tx.id}`)
+                this.$eventHub.$emit(`openTxModal${this.tx.id}`)
             },
             closeTxModal () {
-                eventHub.$emit(`closeTxModal${this.tx.id}`)
+                this.$eventHub.$emit(`closeTxModal${this.tx.id}`)
             },
 
             confirm () {
@@ -226,7 +226,7 @@
         mounted() {
             this.startTimer()
 
-            eventHub.$on(`end-timer-${this.tx.id}`, () => {
+            this.$eventHub.$on(`end-timer-${this.tx.id}`, () => {
                 //this.endTimer()
                 this.timeUp()
             })

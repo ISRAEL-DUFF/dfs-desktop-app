@@ -6,7 +6,6 @@ import About from "@/views/About.vue";
 import Wallet from "@/views/Wallet.vue";
 import Profile from "@/views/profile/Profile";
 import ProfileUpload from "@/views/profile/Upload";
-import Market from "@/views/Market";
 import Dashboard from "@/views/Dashboard";
 import Chat from '@/views/chat/Chat';
 
@@ -33,10 +32,6 @@ const routes = [
       {
         path: "upload",
         component: ProfileUpload,
-      },
-      {
-        path: "market",
-        component: Market,
       },
       {
         path: "chat",

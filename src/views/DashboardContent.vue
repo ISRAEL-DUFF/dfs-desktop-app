@@ -14,7 +14,6 @@
 
 <script>
   import Timer from "@/components/p2p/Timer";
-  import eventHub from "@/eventHub"
 
     export default {
         data() {
@@ -41,28 +40,8 @@
 
         mounted () {
             let that = this
-            eventHub.$on('ping', (tx) => {
+            this.$eventHub.$on('ping', (tx) => {
                 that.liveTransactions.push(tx)
-            })
-
-            eventHub.$on('tx-appeal', (data) => {
-                for(let tx of this.liveTransactions) {
-                    if(tx.id === data.id) {
-                        tx.status = 'appeal'
-                        break;
-                    }
-                }
-            })
-
-            eventHub.$on('tx-completed', (data) => {
-                for(let i in this.liveTransactions) {
-                    let tx = this.liveTransactions[i]
-                    if(tx.id === data.id) {
-                        eventHub.$emit(`end-timer-${tx.id}`)
-                        this.liveTransactions.splice(i)
-                        break;
-                    }
-                }
             })
         }
     }

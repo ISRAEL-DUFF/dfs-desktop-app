@@ -289,7 +289,7 @@
   import WalletForm from '../components/p2p/WalletForm.vue'
   import AmountInputForm from '../components/p2p/InputWidget.vue'
   import Modal from '../components/p2p/Modal.vue'
-  import eventHub from '@/eventHub'
+  // import eventHub from '@/eventHub'
   import {mapState} from 'vuex'
   import Notification from '@/components/p2p/Notification'
   import axios from 'axios'
@@ -363,22 +363,22 @@
       },
 
       openBuyModal() {
-        eventHub.$emit('openBuyModal');
+        this.$eventHub.$emit('openBuyModal');
       },
 
       openSellModal() {
         // cache current state of wallet
         this.cacheWallet()
-        eventHub.$emit('openSellModal');
+        this.$eventHub.$emit('openSellModal');
       },
 
       closeSellModal () {
         // ....after doing everything....
-        eventHub.$emit('closeSellModal')
+        this.$eventHub.$emit('closeSellModal')
       },
       closeBuyModal () {
         // ....after doing everything....
-        eventHub.$emit('closeBuyModal')
+        this.$eventHub.$emit('closeBuyModal')
       },
     },
 

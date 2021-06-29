@@ -12,58 +12,58 @@ export default {
   name: 'App',
 
   mounted() {
-    let jsList = {
-      'commonJs': [
-        "js/jquery.min.js", "js/popper.min.js", "js/moment.min.js", 
-        "js/bootstrap.min.js", "js/simplebar.min.js", 'js/daterangepicker.js',
-        'js/jquery.stickOnScroll.js', "js/tinycolor-min.js", "js/config.js",
-        "js/apps.js"
-      ],
+    // let jsList = {
+    //   'commonJs': [
+    //     "js/jquery.min.js", "js/popper.min.js", "js/moment.min.js", 
+    //     "js/bootstrap.min.js", "js/simplebar.min.js", 'js/daterangepicker.js',
+    //     'js/jquery.stickOnScroll.js', "js/tinycolor-min.js", "js/config.js",
+    //     "js/apps.js"
+    //   ],
 
-      'chartJs': [
-        "js/d3.min.js", "js/topojson.min.js", "js/datamaps.all.min.js", "js/datamaps-zoomto.js",
-        "js/datamaps.custom.js", "js/Chart.min.js", "js/gauge.min.js", "js/jquery.sparkline.min.js",
-        "js/apexcharts.min.js", "js/apexcharts.custom.js", /*"js/apps.js"*/
-      ]
-    }
+    //   'chartJs': [
+    //     "js/d3.min.js", "js/topojson.min.js", "js/datamaps.all.min.js", "js/datamaps-zoomto.js",
+    //     "js/datamaps.custom.js", "js/Chart.min.js", "js/gauge.min.js", "js/jquery.sparkline.min.js",
+    //     "js/apexcharts.min.js", "js/apexcharts.custom.js", /*"js/apps.js"*/
+    //   ]
+    // }
 
 
-    eventHub.$on('load-js', (jsSrc) => {
-      if(!jsSrc || !jsList[jsSrc]) return;
-      console.log(`******* Loading JS Group ${jsSrc} ********`)
+    // eventHub.$on('load-js', (jsSrc) => {
+    //   if(!jsSrc || !jsList[jsSrc]) return;
+    //   console.log(`******* Loading JS Group ${jsSrc} ********`)
       
-      let i = 0;
-      function loadScript() {
-        if(i < jsList[jsSrc].length) {
-          const src = jsList[jsSrc][i++]
-          if(!document.getElementById(src)) {
-            const s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src = `/static/${src}`;
-            s.id = `${src}`;
-            document.body.appendChild(s);
-            s.onload = loadScript
-          }
-          loadScript()
-        }
-      }
-      loadScript()
+    //   let i = 0;
+    //   function loadScript() {
+    //     if(i < jsList[jsSrc].length) {
+    //       const src = jsList[jsSrc][i++]
+    //       if(!document.getElementById(src)) {
+    //         const s = document.createElement('script');
+    //         s.type = 'text/javascript';
+    //         s.src = `/static/${src}`;
+    //         s.id = `${src}`;
+    //         document.body.appendChild(s);
+    //         s.onload = loadScript
+    //       }
+    //       loadScript()
+    //     }
+    //   }
+    //   loadScript()
 
-      console.log(`******* Done ********`)
-    })
+    //   console.log(`******* Done ********`)
+    // })
 
-    eventHub.$on('unload-js', (jsSrc)=> {
-      if(!jsSrc || !jsList[jsSrc]) return;
-      console.log(`******* Removing JS Group ${jsSrc} *******`)
-      for(let src of jsList[jsSrc]) {
-        let js = document.getElementById(`/static/${src}`);
-        if(js) {
-          js.remove()
-          console.log(`Unloaded js: ${src}`)
-        }
-      }
-      console.log(`******* Done ********`)
-    })
+    // eventHub.$on('unload-js', (jsSrc)=> {
+    //   if(!jsSrc || !jsList[jsSrc]) return;
+    //   console.log(`******* Removing JS Group ${jsSrc} *******`)
+    //   for(let src of jsList[jsSrc]) {
+    //     let js = document.getElementById(`/static/${src}`);
+    //     if(js) {
+    //       js.remove()
+    //       console.log(`Unloaded js: ${src}`)
+    //     }
+    //   }
+    //   console.log(`******* Done ********`)
+    // })
   }
 }
 </script>

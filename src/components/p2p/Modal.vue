@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import eventHub from '@/eventHub'
+    // import eventHub from '@/eventHub'
     export default {
         data() {
             return {
@@ -69,12 +69,12 @@
         },
 
         mounted () {
-            eventHub.$on(this.openCmd, ()=> {
+            this.$eventHub.$on(this.openCmd, ()=> {
                 this.showDialog = true
                 document.getElementById(this.openBtn).click()
             })
 
-            eventHub.$on(this.closeEvt,()=> {
+            this.$eventHub.$on(this.closeEvt,()=> {
                 console.log("CHECK ON MODAL:", this.closeEvt)
                 this.closeModal()
             })
