@@ -28,7 +28,8 @@
     export default {
         data() {
             return {
-                showDialog: false
+                showDialog: false,
+                clickHandler: null
             }
         },
 
@@ -38,8 +39,39 @@
         methods: {
             closeModal () {
                 this.showDialog = false;
+                document.getElementById(this.name).removeEventListener('click', this.dummHandler)
+                document.getElementById(this.name).addEventListener('click', this.clickHandler)
                 document.getElementById(this.closeBtn).click()
             },
+            openModal () {
+                this.showDialog = true
+                document.getElementById(this.openBtn).click()
+            },
+
+            dummHandler () {
+                console.log("Dummy click")
+            },
+
+            modifyEventListeners(domEl) {
+                let that = this;
+                (function(w){
+                    var originalAdd = w.addEventListener;
+                    w.addEventListener = function(){
+                        // add your own stuff here to debug
+                        if(arguments[0] === 'click' && that.showDialog) {
+                            that.clickHandler = arguments[1]
+                            arguments[1] = that.dummHandler
+                        }
+                        return originalAdd.apply(this, arguments);
+                    };
+
+                    var originalRemove = w.removeEventListener;
+                    w.removeEventListener = function(){
+                        // add your own stuff here to debug
+                        return originalRemove.apply(this, arguments);
+                    };
+                })(domEl);
+            }
         },
 
         computed: {
@@ -70,14 +102,14 @@
 
         mounted () {
             this.$eventHub.$on(this.openCmd, ()=> {
-                this.showDialog = true
-                document.getElementById(this.openBtn).click()
+                this.openModal()
             })
 
             this.$eventHub.$on(this.closeEvt,()=> {
-                console.log("CHECK ON MODAL:", this.closeEvt)
                 this.closeModal()
             })
+
+            this.modifyEventListeners(document.getElementById(this.name))
         }
     }
 </script>
