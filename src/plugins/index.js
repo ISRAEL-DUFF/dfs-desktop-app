@@ -28,6 +28,8 @@ MyPlugin.install = function(app, options) {
                       s.onload = loadScript
                     }
                     loadScript()
+                  } else {
+                    eventHub.$emit('js-load-complete')
                   }
                 }
                 loadScript()
@@ -39,13 +41,21 @@ MyPlugin.install = function(app, options) {
             if(!jsSrc || !jsList[jsSrc]) return;
             console.log(`******* Removing JS Group ${jsSrc} *******`)
             for(let src of jsList[jsSrc]) {
-                let js = document.getElementById(`/static/${src}`);
+                let js = document.getElementById(`${src}`);
                 if(js) {
                 js.remove()
                 console.log(`Unloaded js: ${src}`)
                 }
             }
+            eventHub.$emit('js-unload-complete')
             console.log(`******* Done ********`)
+            })
+
+            eventHub.$on('reload-js', (jsSrc) => {
+              eventHub.$once('js-unload-complete', () => {
+                eventHub.$emit('load-js', jsSrc)
+              })
+              eventHub.$emit('unload-js', jsSrc)
             })
 
             inited = true
@@ -55,6 +65,10 @@ MyPlugin.install = function(app, options) {
 
     app.config.globalProperties.$removeScripts = function(srcName) {
         eventHub.$emit('unload-js', srcName)
+    }
+
+    app.config.globalProperties.$reloadScripts = function(srcName) {
+      eventHub.$emit('reload-js', srcName)
     }
 }
 
