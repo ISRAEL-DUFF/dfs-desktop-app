@@ -82,20 +82,39 @@
                 return `openBtn-${this.name}`
             },
             modalClass () {
-                if(this.type && this.type === 'slide') {
-                    return {
-                        c1: "modal fade modal-notif modal-slide",
-                        c2: "modal-dialog modal-sm",
-                        c3: "modal-body",
-                        c4: "modal-footer"
-                    }
+                let defaultModal = {
+                    c1: "modal fade",
+                    c2: "modal-dialog",
+                    c3: "modal-body p-4",
+                    c4: "modal-footer d-flex justify-content-between"
+                }
+
+                if(this.type) {
+                    if(this.type === 'slide') {
+                        return {
+                            c1: "modal fade modal-notif modal-slide",
+                            c2: "modal-dialog modal-sm",
+                            c3: "modal-body",
+                            c4: "modal-footer"
+                        }
+                    } else if(this.type === 'slideRight') {
+                        return {
+                            c1: "modal fade modal-right modal-slide",
+                            c2: "modal-dialog modal-sm",
+                            c3: "modal-body",
+                            c4: "modal-footer"
+                        }
+                    } else if(this.type === 'fullscreen') {
+                        return {
+                            c1: "modal fade modal-full",
+                            c2: "modal-dialog modal-dialog-centered",
+                            c3: "modal-body text-center",
+                            c4: "modal-footer"
+                        }
+                    } else return defaultModal
+                    
                 } else {
-                    return {
-                        c1: "modal fade",
-                        c2: "modal-dialog",
-                        c3: "modal-body p-4",
-                        c4: "modal-footer d-flex justify-content-between"
-                    }
+                    return defaultModal
                 }
             }
         },
