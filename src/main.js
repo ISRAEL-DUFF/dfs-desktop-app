@@ -35,4 +35,9 @@ let jsList = {
     ]
   }
 
-createApp(App).use(store).use(router).use(myPlugin, { jsList }).mount('#app')
+createApp(App).
+use(store).use(router).
+use(myPlugin.EventHub).
+use(myPlugin.jsLoader, { jsList }).
+use(myPlugin.InfiniteScroll).
+mount('#app')

@@ -100,8 +100,12 @@
         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus.</p>
         <div class="card-deck my-4">
           <div class="card mb-4 shadow">
-            <div class="card-body text-center my-4">
-
+            <div style='height: 300px; overflow: scroll' class="card-body text-center my-4" ref='subs'>
+              <ul>
+                <li v-for='(item, i) in items' :key = 'i'>
+                  <span>{{i}}: </span> <span>{{item}}</span>
+                </li>
+              </ul>
             </div> <!-- .card-body -->
           </div> <!-- .card -->
           <div class="card mb-4">
@@ -114,3 +118,31 @@
     </div> <!-- .row -->
   </div> <!-- .container-fluid -->
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        items: []
+      }
+    },
+
+    methods: {
+      addMoreData() {
+        console.log('adding more data')
+        let n = this.items.length;
+        for(let i = n; i <= n + 50; i++) {
+          this.items.push(i * 2);
+        }
+      }
+    },
+
+    mounted() {
+      this.$addScrollListener(this.$refs['subs'], 'subs')
+      this.$onScrollTo('subs-bottom', () => {
+        this.addMoreData()
+      })
+      this.addMoreData()
+    }
+  }
+</script>

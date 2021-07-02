@@ -1,11 +1,8 @@
-import eventHub from './eventHub'
+import eventHub from './utility/eventHub'
 
 let JsLoaderPlugin = {}
 
 JsLoaderPlugin.install = function(app, options) {
-
-    app.config.globalProperties.$eventHub = eventHub;
-
     let jsList = options.jsList || {}
     let inited = false
     app.config.globalProperties.$loadScripts = function(srcName) {

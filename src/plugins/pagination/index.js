@@ -1,4 +1,4 @@
-import Pagination from './pagination/Pagination'
+import Pagination from './Pagination'
 let PaginationPlugin = {}
 
 PaginationPlugin.install = function(app, options) {
@@ -8,7 +8,7 @@ PaginationPlugin.install = function(app, options) {
     let inited = false
     
     if(!inited) {
-        console.log('Initing pagination')
+        console.log('Initing pagination Plugin')
 
         inited = true
     }
