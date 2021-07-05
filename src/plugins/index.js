@@ -1,10 +1,10 @@
 import EventHub from './eventHub'
-import jsLoader from './jsLoader'
-import pagination from './pagination'
-import InfiniteScroll from './infiniteScroll'
+import Loader from './loader'
+import Pagination from './pagination'
+import InfiniteScroll from './infscroll'
 export default {
     EventHub,
-    jsLoader,
-    pagination,
+    Loader,
+    Pagination,
     InfiniteScroll
 }

@@ -1,8 +1,8 @@
-import eventHub from './utility/eventHub'
+import eventHub from '../utility/eventHub'
+import InfiniteScroll from './InfiniteScroll'
 let InfiniteScrollPlugin = {}
 
 InfiniteScrollPlugin.install = function(app, options) {
-
 
     function scrollDistance (container, callback, refresh) {
         // Make sure a valid callback was provided
@@ -45,7 +45,7 @@ InfiniteScrollPlugin.install = function(app, options) {
     let inited = false
     
     if(!inited) {
-        console.log('Initing pagination')
+        console.log('Initing infinite scroll')
 
         inited = true
     }
@@ -71,6 +71,8 @@ InfiniteScrollPlugin.install = function(app, options) {
     app.config.globalProperties.$onScrollTo = function(...args) {
         eventHub.$on(...args)
     }
+
+    app.component('InfiniteScroll', InfiniteScroll)
 
 }
 
