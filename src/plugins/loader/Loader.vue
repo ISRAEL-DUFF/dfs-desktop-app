@@ -11,7 +11,11 @@
                 refresh: true,
                 leavePage: false,
 
-                exitData: ''
+                exitData: '',
+
+                // ...for document.body
+                eventListeners: [],
+                childElements: []
             }
         },
 
@@ -35,7 +39,18 @@
         },
 
         methods: {
-            
+            pageInit() {
+                if (this.$pageLoaded()) {
+                    console.log("ONCE DONE")
+                    // re-emit all windows event
+                    var evt = document.createEvent('Event');
+                    evt.initEvent('load', false, false);
+                    window.dispatchEvent(evt);
+                } else {
+                    console.log("ENABLED")
+                    this.$enablePageInited()
+                }
+            }
         },
 
        async mounted() {
@@ -43,9 +58,10 @@
             this.$loadStyles(this.cssSrcName, () => {
                 this.loaded = true
                 that.$nextTick(() => {
-                    this.$loadScripts(this.jsSrcName)            
+                    this.$loadScripts(this.jsSrcName);
+                    this.pageInit()            
                 })
-            })           
+            })
         },
 
         watch: {
@@ -78,8 +94,9 @@
 
         beforeUnmount() {
             this.loaded = false;
-            this.$removeScripts(this.jsSrcName)
+            // this.$removeScripts(this.jsSrcName)
             this.$removeStyles(this.cssSrcName)
+            this.$resetWatch()
             if(this.refreshOnExit && this.exitData) {
                 sessionStorage.setItem(this.uname+'-refresh', JSON.stringify(this.exitData))
 
