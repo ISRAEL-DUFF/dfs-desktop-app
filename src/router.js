@@ -8,6 +8,8 @@ import Profile from "@/views/profile/Profile";
 import ProfileUpload from "@/views/profile/Upload";
 import Dashboard from "@/views/Dashboard";
 import Chat from '@/views/chat/Chat';
+import Neumorphic from '@/views/Neumorphic';
+import Test from '@/components/neumorphism/Test'
 
 const routes = [
   {
@@ -39,6 +41,19 @@ const routes = [
       },
     ]
   },
+
+  {
+    path: "/neumorphic",
+    name: "Neumorphic",
+    component: Neumorphic,
+  },
+
+  {
+    path: "/test",
+    name: "Test",
+    component: Test,
+  },
+
   {
     path: "/login",
     name: "Login",

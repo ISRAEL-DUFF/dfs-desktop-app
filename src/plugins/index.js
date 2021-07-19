@@ -1,15 +1,17 @@
 import EventHub from './eventHub'
-import Loader from './loader'
+import Page from './page'
 import Pagination from './pagination'
 import InfiniteScroll from './infscroll'
 import Toast from './toast'
 import Spinner from './spinner'
+import VueExtend from './vueExtend'
 
 export default {
     EventHub,
-    Loader,
+    Page,
     Pagination,
     InfiniteScroll,
     Toast,
-    Spinner
+    Spinner,
+    VueExtend
 }

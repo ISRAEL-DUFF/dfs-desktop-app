@@ -1,8 +1,8 @@
 import eventHub from '../utility/eventHub'
 import Logger from '../utility/logger'
-import loader from './load'
+import loader from './loader'
 import domwatch from './domwatch'
-import LoaderComponent from './Loader'
+import PageComponent from './Page'
 
 let logger = {}
 let JsLoaderPlugin = {}
@@ -17,7 +17,10 @@ domwatch.watchForChanges()
 JsLoaderPlugin.install = function(app, options) {
     let jsList = options.jsList || {}
     let cssList = options.cssList || {}
-    loader.init(cssList, jsList)
+    let preloaderBgColor = options.preloaderBgColor || 'grey'
+    let preloader = options.preloader  || {}
+    let baseUrl = options.baseUrl || ''
+    loader.init(cssList, jsList, baseUrl)
     logger = Logger(options.debug)
     let jsLoaderInited = false
     let cssLoaderInited = false
@@ -130,8 +133,15 @@ JsLoaderPlugin.install = function(app, options) {
       pluginInstalled = true
     }
 
+    app.config.globalProperties.$pagePreloader = function() {
+      return {
+        bgColor: preloaderBgColor,
+        component: preloader
+      }
+    }
+
     // GLOBAL LEVEL COMPONENT
-    app.component('Page', LoaderComponent)
+    app.component('Page', PageComponent)
 }
 //************** INSTALL END ***************
 

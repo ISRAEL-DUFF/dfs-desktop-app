@@ -39,7 +39,12 @@
 
         methods: {
             async loadData() {
-               let url = `${this.url}?page=${this.currentPage}&pageSize=${this.$options.static.visibleItemsPerPageCount}`
+                let url = ''
+                if(!this.url.includes('?')) {
+                    url = `${this.url}?page=${this.currentPage}&pageSize=${this.$options.static.visibleItemsPerPageCount}`
+                } else {
+                    url = `${this.url}&page=${this.currentPage}&pageSize=${this.$options.static.visibleItemsPerPageCount}`
+                }
                const { data } = await axios.get(url)
                this.pageData = data.results
                 this.$emit('data', this.pageData)
@@ -61,6 +66,12 @@
             }
         },
 
+        watch: {
+            url () {
+                this.loadData()
+            }
+        },
+
         components: {
             BasePagination
         },
@@ -70,7 +81,6 @@
                 this.visibleItemsPerPageCount = this.itemsPerPage
             }
             let data = await this.loadData()
-            console.log('data:', data)
             this.pageCount = Math.ceil(
                 data.totalResults / this.$options.static.visibleItemsPerPageCount
             )

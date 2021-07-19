@@ -36,9 +36,9 @@
               </router-link>
             </li>
             <li class="nav-item dropdown">
-              <router-link to="/dashboard/market" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+              <router-link to="/neumorphic" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
-                <span class="ml-3 item-text">Market</span>
+                <span class="ml-3 item-text">Neumorphic</span>
               </router-link>
             </li>
             <li class="nav-item w-100">

@@ -13,6 +13,8 @@ import store from './store'
 
 // import LoadScript from 'vue-plugin-load-script';
 
+import Preloader from '@/components/PreLoader'
+
 
 // import jQuery from 'jquery'
 // global.$ = jQuery
@@ -21,23 +23,53 @@ import store from './store'
 
 
 let jsList = {
-    'commonJs': [
-      "js/jquery.min.js", "js/popper.min.js", "js/moment.min.js", 
-      "js/bootstrap.min.js", "js/simplebar.min.js", 'js/daterangepicker.js',
-      'js/jquery.stickOnScroll.js', "js/tinycolor-min.js", "js/config.js",
-      "js/apps.js"
-    ],
+  'commonJs': [
+    "/static/js/jquery.min.js", 
+    "/static/js/popper.min.js", 
+    "/static/js/moment.min.js", 
+    "/static/js/bootstrap.min.js", 
+    "/static/js/simplebar.min.js", 
+    '/static/js/daterangepicker.js',
+    '/static/js/jquery.stickOnScroll.js', 
+    "/static/js/tinycolor-min.js", 
+    "/static/js/config.js",
+    "/static/js/apps.js"
+  ],
 
-    'chartJs': [
-      "js/d3.min.js", "js/topojson.min.js", "js/datamaps.all.min.js", "js/datamaps-zoomto.js",
-      "js/datamaps.custom.js", "js/Chart.min.js", "js/gauge.min.js", "js/jquery.sparkline.min.js",
-      "js/apexcharts.min.js", "js/apexcharts.custom.js", /*"js/apps.js"*/
-    ]
-  }
+  'chartJs': [
+    "js/d3.min.js", "js/topojson.min.js", "js/datamaps.all.min.js", "js/datamaps-zoomto.js",
+    "js/datamaps.custom.js", "js/Chart.min.js", "js/gauge.min.js", "js/jquery.sparkline.min.js",
+    "js/apexcharts.min.js", "js/apexcharts.custom.js", /*"js/apps.js"*/
+  ],
+
+  'filePanelJs': ['js/customjs/filePanel.js'],
+
+  'homePageJs': [
+    '/neumorphic/bootstrap-5.0.2-dist/js/bootstrap.bundle.js',
+  ]
+}
+
+let cssList = {
+  'loginCss': ["/static/css/dashboard/app-dark.css"],
+  'dashboardCss': [
+    '/static/css/dashboard/simplebar.css',
+    "/static/css/dashboard/feather.css",
+    "/static/css/dashboard/daterangepicker.css",
+    "/static/css/dashboard/app-dark.css",
+    "/static/css/dashboard/google-fonts.css"
+  ],
+  'homePageCss': [
+    "/neumorphic/bootstrap-5.0.2-dist/css/bootstrap.min.css",
+    '/neumorphic/neumorph.css'
+  ]
+}
 
 createApp(App).
 use(store).use(router).
 use(myPlugin.EventHub).
-use(myPlugin.jsLoader, { jsList }).
+use(myPlugin.VueExtend).
+use(myPlugin.Page, { jsList, cssList, 
+  preloaderBgColor: 'black', preloader: Preloader, 
+  debug: true }).
 use(myPlugin.InfiniteScroll).
 mount('#app')

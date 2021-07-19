@@ -1,14 +1,14 @@
 :root {
     /* --main-color: rgb(150, 149, 149); */
-    --x: 10px;
-    --y: 10px;
-    --x-n: -2px;
-    --y-n: -2px;
-    --neun-blur: 10px;
+    --x: 8px;
+    --y: 8px;
+    --x-n: -8px;
+    --y-n: -8px;
+    --neun-blur: 8px;
     --neun-spread: 0;    /* size (in terms of width and height. width = height) of the shadow */
-    --neun-light-src: #e9eef0;
-    --neun-dark-shadow: #babbbd ;
-    --main-color: #d7dddf;
+    --neun-light-src: #b0f56f;
+    --neun-dark-shadow: #1dac58 ;
+    --main-color: #77f304;
 
     
     --neum-extrude: var(--x-n) var(--y-n) var(--neun-blur) var(--neun-spread) var(--neun-light-src), var(--x) var(--y) var(--neun-blur) var(--neun-spread) var(--neun-dark-shadow);

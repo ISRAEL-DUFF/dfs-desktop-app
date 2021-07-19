@@ -1,5 +1,7 @@
 <template>
     <slot v-if='loaded'></slot>
+    <div v-if = '!loaded' ref='preloadContainer' :style = 'preloaderStyle'>
+    </div>
 </template>
 
 
@@ -16,6 +18,7 @@
                 // ...for document.body
                 eventListeners: [],
                 childElements: []
+
             }
         },
 
@@ -32,22 +35,36 @@
                 type: Boolean,
                 default: false
             },
-            'uname': {  // unit name for this page
+            'uname': {  // unique name for this page
                 type: String,
                 required: true
             } 
         },
 
+        emits: ['ready'],
+
+        computed: {
+            preloaderStyle () {
+                return `
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    min-height: 100vh;
+                    background-color: ${this.$pagePreloader().bgColor};
+                `
+            }
+        },
+
         methods: {
             pageInit() {
                 if (this.$pageLoaded()) {
-                    console.log("ONCE DONE")
                     // re-emit all windows event
                     var evt = document.createEvent('Event');
                     evt.initEvent('load', false, false);
                     window.dispatchEvent(evt);
                 } else {
-                    console.log("ENABLED")
                     this.$enablePageInited()
                 }
             }
@@ -55,11 +72,19 @@
 
        async mounted() {
             let that = this;
+
+            // mount preloader
+            let preloadCtr = this.$VueExtend(this.$pagePreloader().component)
+            let preload = new preloadCtr()
+            preload.$mount()
+            this.$refs.preloadContainer.appendChild(preload.$el())
+
             this.$loadStyles(this.cssSrcName, () => {
                 this.loaded = true
                 that.$nextTick(() => {
                     this.$loadScripts(this.jsSrcName);
-                    this.pageInit()            
+                    this.pageInit()
+                    this.$emit('ready');            
                 })
             })
         },
@@ -107,6 +132,5 @@
     }
 </script>
 
-<style>
-    
+<style scoped>
 </style>

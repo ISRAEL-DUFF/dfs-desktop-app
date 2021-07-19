@@ -1,4 +1,5 @@
 
+let rootUrl = ''
 let jsList =  {}
 let cssList =  {}
 
@@ -13,7 +14,7 @@ function create(createType) {
         scr.onload = loadCb;
         scr.onreadystatechange = function() { readyCb(scr) };
         scr.onerror = errorCb;
-        scr.src = path;
+        scr.src = `${rootUrl}${path}`;
         scr.id = path;
         document.body.appendChild(scr);
       }
@@ -23,7 +24,7 @@ function create(createType) {
       if(!document.getElementById(src)) {
         let file = document.createElement('link');
         file.rel = 'stylesheet';
-        file.href = `${src}`
+        file.href = `${rootUrl}${src}`
         file.id = `${src}`
         file.onload = loadCb
         file.onreadystatechange = function() { readyCb(file) };
@@ -135,9 +136,10 @@ function create(createType) {
     } else return
   }
 
-  function init(styleList, scriptList) {
+  function init(styleList, scriptList, baseUrl) {
     cssList = styleList;
-    jsList = scriptList
+    jsList = scriptList;
+    rootUrl = baseUrl
   }
 
   export default {
